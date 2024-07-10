@@ -22,10 +22,10 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean createUser(SignupRequest signupRequest) {
+    public User createUser(SignupRequest signupRequest) {
         // check if user already exist
         if(userRepository.existsByEmail(signupRequest.getEmail())) {
-            return  false;
+            return  null;
         }
         User user = new User();
         BeanUtils.copyProperties(signupRequest,user);
@@ -41,6 +41,6 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(hashPassword);
         userRepository.save(user);
 
-        return true;
+        return user;
     }
 }

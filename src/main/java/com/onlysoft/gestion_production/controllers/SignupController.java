@@ -21,6 +21,7 @@ public class SignupController {
         this.authService = authService;
     }
 
+/*
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public ResponseEntity<Map<String, String>> signup(@RequestBody User user) {
@@ -28,5 +29,17 @@ public class SignupController {
         Map<String, String> response = new HashMap<>();
         response.put("message", "User created successfully");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+ */
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping
+    public ResponseEntity<?> signupCustomer(@RequestBody SignupRequest signupRequest) {
+        User createdCustomer = authService.createUser(signupRequest);
+        if (createdCustomer != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create customer");
+        }
     }
 }
