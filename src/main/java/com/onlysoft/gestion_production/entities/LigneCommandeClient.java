@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.math.BigDecimal;
+
 @Data
 @SuperBuilder
 @AllArgsConstructor
@@ -22,6 +24,11 @@ public class LigneCommandeClient extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "idarticle")
     private Article article;
+
+    private Integer Quantite;
+
+    private BigDecimal prixUnitaire;
+
 
     @ManyToOne
     @JoinColumn(name = "idcommandeclient")

@@ -1,17 +1,15 @@
 package com.onlysoft.gestion_production.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Data
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "client")
 public class Client extends AbstractEntity {
@@ -22,6 +20,7 @@ public class Client extends AbstractEntity {
 
     @Column(name = "nom")
     private String nom;
+
     @Column(name = "prenom")
 
     private String prenom;
@@ -38,6 +37,7 @@ public class Client extends AbstractEntity {
     @OneToMany(mappedBy = "client")
     private List<CommandeClient> commandeClients;
 
-
+    @OneToOne
+    private  Adresse adresse;
 
 }

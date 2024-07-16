@@ -21,5 +21,5 @@ public class MvtStk extends AbstractEntity {
     @Id
     @GeneratedValue
     private Integer id;
-    private Number Quantité;
+    private Number Quantite;
 }
