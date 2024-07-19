@@ -19,7 +19,7 @@ public class VentesValidator {
         if (!StringUtils.hasLength(dto.getCode())) {
             errors.add("Veuillez renseigner le code de la commande");
         }
-        
+
         return errors;
     }
 }

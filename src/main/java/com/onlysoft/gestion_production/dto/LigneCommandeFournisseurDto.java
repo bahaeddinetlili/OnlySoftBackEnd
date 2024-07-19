@@ -14,7 +14,7 @@ public class LigneCommandeFournisseurDto {
 
     private Integer id;
 
-    private ArticleDto article;
+    //private ArticleDto article;
 
     private CommandeFournisseurDto commandeFournisseur;
 
@@ -24,7 +24,7 @@ public class LigneCommandeFournisseurDto {
         }
         return LigneCommandeFournisseurDto.builder()
                 .id(ligneCommandeFournisseur.getId())
-                .article(ArticleDto.fromEntity(ligneCommandeFournisseur.getArticle()))
+               // .article(ArticleDto.fromEntity(ligneCommandeFournisseur.getArticle()))
                 .commandeFournisseur(CommandeFournisseurDto.fromEntity(ligneCommandeFournisseur.getCommandeFournisseur()))
                 .build();
     }
@@ -35,7 +35,7 @@ public class LigneCommandeFournisseurDto {
         }
         return LigneCommandeFournisseur.builder()
                 .id(ligneCommandeFournisseurDto.getId())
-                .article(ArticleDto.toEntity(ligneCommandeFournisseurDto.getArticle()))
+                //.article(ArticleDto.toEntity(ligneCommandeFournisseurDto.getArticle()))
                 .commandeFournisseur(CommandeFournisseurDto.toEntity(ligneCommandeFournisseurDto.getCommandeFournisseur()))
                 .build();
     }
