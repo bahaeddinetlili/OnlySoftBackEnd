@@ -1,5 +1,6 @@
 package com.onlysoft.gestion_production.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,9 +28,10 @@ public class Category  extends  AbstractEntity{
     @Column(name = "designation")
     private String designation;
 
-    /*
+
     @OneToMany(mappedBy = "category")
+    @JsonManagedReference
     private List<Article> articles;
 
-     */
+
 }

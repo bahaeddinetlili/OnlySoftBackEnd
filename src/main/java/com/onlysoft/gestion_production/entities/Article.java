@@ -1,5 +1,7 @@
 package com.onlysoft.gestion_production.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,12 +42,12 @@ public class Article extends AbstractEntity {
 
 
 
-    private  String photo;
 
-/*
+
     @ManyToOne
     @JoinColumn(name = "idcategory")
+    @JsonBackReference
     private Category category;
-    */
+
 
 }
