@@ -22,7 +22,7 @@ public class CategoryDto {
     private String designation;
 
     @JsonIgnore
-   // private List<ArticleDto> articles;
+    private List<ArticleDto> articles;
 
     public static CategoryDto fromEntity(Category category) {
         if (category == null) {

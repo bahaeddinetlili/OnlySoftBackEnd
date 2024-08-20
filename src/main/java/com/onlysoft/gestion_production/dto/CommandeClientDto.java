@@ -56,7 +56,7 @@ public class CommandeClientDto {
         }
         return CommandeClient.builder()
                 .id(commandeClientDto.getId())
-                .etatCommande(commandeClientDto.getEtatCommande())
+                //.etatCommande(commandeClientDto.getEtatCommande())
                 .code(commandeClientDto.getCode())
                 .dateCommande(commandeClientDto.getDateCommande())
                 .client(ClientDto.toEntity(commandeClientDto.getClient()))
@@ -66,5 +66,9 @@ public class CommandeClientDto {
                                         .map(LigneCommandeClientDto::toEntity)
                                         .collect(Collectors.toList()) : null)
                 .build();
+    }
+
+    public boolean isCommandeLivree() {
+        return EtatCommande.LIVREE.equals(this.etatCommande);
     }
 }

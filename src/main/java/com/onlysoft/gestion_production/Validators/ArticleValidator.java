@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleValidator {
+
     public static List<String> validate(ArticleDto dto) {
         List<String> errors = new ArrayList<>();
 
@@ -35,9 +36,13 @@ public class ArticleValidator {
         if (dto.getPrixUnitaireTtc() == null) {
             errors.add("Veuillez renseigner le prix unitaire TTC de l'article");
         }
+
         if (dto.getCategory() == null || dto.getCategory().getId() == null) {
             errors.add("Veuillez selectionner une categorie");
         }
+
+
         return errors;
     }
+
 }

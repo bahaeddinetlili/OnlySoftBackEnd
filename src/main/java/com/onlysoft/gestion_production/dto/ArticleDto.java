@@ -41,7 +41,6 @@ public class ArticleDto {
                 .prixUnitaireHt(article.getPrixUnitaireHt())
                 .tauxTva(article.getTauxTva())
                 .prixUnitaireTtc(article.getPrixUnitaireTtc())
-                .photo(article.getPhoto())
                 .category(CategoryDto.fromEntity(article.getCategory()))
                 .build();
     }
@@ -56,7 +55,6 @@ public class ArticleDto {
                 .prixUnitaireHt(articleDto.getPrixUnitaireHt())
                 .tauxTva(articleDto.getTauxTva())
                 .prixUnitaireTtc(articleDto.getPrixUnitaireTtc())
-                .photo(articleDto.getPhoto())
                 .category(CategoryDto.toEntity(articleDto.getCategory()))
                 .build();
     }

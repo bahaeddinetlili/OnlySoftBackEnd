@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -43,4 +46,13 @@ public class AuthServiceImpl implements AuthService {
 
         return user;
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll().stream()
+                .peek(user -> user.setPassword(user.getPassword())) // Avoid encoding
+                .collect(Collectors.toList());
+    }
+
+
 }
