@@ -9,7 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -17,10 +22,30 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
+    private static final String UPLOAD_DIR = "C:/Users/bahae/OneDrive/Bureau/frontend/src/assets/img/";
 
     @Autowired
     public ArticleServiceImpl(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
+    }
+
+
+    @Override
+    public void saveImage(Long articleId, MultipartFile file) throws IOException {
+        // Validate the file and article ID
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("File is empty");
+        }
+
+        // Create the directory if it does not exist
+        Path uploadPath = Paths.get(UPLOAD_DIR);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        // Save the file
+        Path filePath = uploadPath.resolve(file.getOriginalFilename());
+        file.transferTo(filePath.toFile());
     }
 
     @Override

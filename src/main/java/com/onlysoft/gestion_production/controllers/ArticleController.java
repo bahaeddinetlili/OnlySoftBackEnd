@@ -4,10 +4,24 @@ import com.onlysoft.gestion_production.entities.Article;
 import com.onlysoft.gestion_production.exception.EntityNotFoundException;
 import com.onlysoft.gestion_production.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/articles")
@@ -15,6 +29,8 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
+
+    private static final String UPLOAD_DIR = "C:/Users/bahae/OneDrive/Bureau/frontend/src/assets/img/";
 
     @Autowired
     public ArticleController(ArticleService articleService) {
@@ -40,11 +56,29 @@ public class ArticleController {
         }
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Article> createArticle(@RequestBody Article article) {
         Article savedArticle = articleService.save(article);
-        return ResponseEntity.status(201).body(savedArticle);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedArticle);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(value = "/{id}/upload-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Map<String, String>> uploadImage(
+            @PathVariable("id") Long articleId,
+            @RequestParam("file") MultipartFile file) {
+        try {
+            articleService.saveImage(articleId, file);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Image uploaded successfully");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Error uploading image");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
 
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Article> updateArticle(@PathVariable Integer id, @RequestBody Article article) {
@@ -68,4 +102,7 @@ public class ArticleController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+
 }

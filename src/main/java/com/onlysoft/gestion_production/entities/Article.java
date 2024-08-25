@@ -40,9 +40,9 @@ public class Article extends AbstractEntity {
     @Column(name = "prixunitairettc")
     private BigDecimal prixUnitaireTtc;
 
-
-
-
+    @Lob // Use this annotation for large objects
+    @Column(name = "imagedata")
+    private byte[] imageData;
 
     @ManyToOne
     @JoinColumn(name = "idcategory")
